@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Drawing App</title>
+    <style>
+        canvas {
+            border: 1px solid #000;
+            cursor: crosshair;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Drawing App</h1>
+    <canvas id="drawingCanvas" width="500" height="500"></canvas>
+
+    <script>
+        var canvas = document.getElementById('drawingCanvas');
+        var ctx = canvas.getContext('2d');
+
+        var drawing = false;
+
+        // Function to start drawing
+        canvas.addEventListener('mousedown', function(e) {
+            drawing = true;
+            ctx.beginPath();
+            ctx.moveTo(e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop);
+        });
+
+        // Function to draw on the canvas
+        canvas.addEventListener('mousemove', function(e) {
+            if (drawing) {
+                ctx.lineTo(e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop);
+                ctx.strokeStyle = 'black';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+            }
+        });
+
+        // Function to stop drawing
+        canvas.addEventListener('mouseup', function() {
+            drawing = false;
+            ctx.closePath();
+        });
+
+        // To stop drawing when the mouse leaves the canvas
+        canvas.addEventListener('mouseleave', function() {
+            drawing = false;
+        });
+
+    </script>
+
+</body>
+</html>
